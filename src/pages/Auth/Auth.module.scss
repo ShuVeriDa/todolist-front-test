@@ -16,6 +16,35 @@
     border-radius: 12px;
     //border: 1px solid #2B2B2C;
     background:  #fff;
+
+    .list {
+
+      ul {
+        padding: 0;
+        margin: 0;
+        width: 140px;
+
+        display: flex;
+        justify-content: space-between;
+        list-style-type: none;
+
+        li {
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .title {
+      .h2 {
+        font-size: 20px;
+        text-align: center;
+        font-weight: 500;
+        line-height: 24px;
+      }
+    }
   }
 }
 
