@@ -1,17 +1,18 @@
 import {FC} from 'react';
-import {ICreateTodolist} from "../../../services/todolist.type.ts";
+import {ICreateTask, ICreateTodolist} from "../../../services/todolist.type.ts";
 import {UseFormRegister} from "react-hook-form";
 
 
 interface IFieldProps {
-  register?: UseFormRegister<ICreateTodolist>
+  register: UseFormRegister<ICreateTodolist | ICreateTask>
+  name: "title" | 'text'
   styles?: { readonly [key: string]: string }
 }
 
-export const Field: FC<IFieldProps> = ({styles, register}) => {
+export const Field: FC<IFieldProps> = ({styles, name, register}) => {
   return (
     <div className={styles?.field}>
-      <input {...register ? register("title") : {}}
+      <input {...register(name)}
              className={styles?.input}
              type="text"
              placeholder={'Enter todo here'}

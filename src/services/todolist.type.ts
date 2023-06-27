@@ -13,3 +13,8 @@ export interface ITask {
 export interface ICreateTodolist {
   title: string
 }
+
+export interface ICreateTask {
+  text: string;
+  todolistId: string;
+}

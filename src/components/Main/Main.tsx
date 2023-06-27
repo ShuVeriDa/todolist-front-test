@@ -23,6 +23,7 @@ export const Main: FC = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.field}>
           <Field styles={stylesTodolist}
+                 name={'title'}
                  register={register}
           />
         </div>
