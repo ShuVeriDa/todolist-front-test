@@ -22,7 +22,16 @@ export const Register: FC<IRegisterProps> = (
   return (
     <div className={styles.wrapper}>
       <Input {...register('email', {
-          required: "Электронная почта обязательна", pattern: {
+          required: "Электронная почта обязательна",
+          minLength: {
+            value: 6,
+            message: "Минимальная длина должна быть больше 6 символов"
+          },
+          maxLength: {
+            value: 50,
+            message: 'Максимальная длина должна быть меньше 50 символов'
+          },
+          pattern: {
             value: validEmail,
             message: 'Пожалуйста, введите действительный адрес электронной почты'
           }
@@ -36,10 +45,14 @@ export const Register: FC<IRegisterProps> = (
 
       <Input {...register('password', isPasswordRequired ? {
           required: "Пароль обязателен",
-          minLength: {
-            value: 6,
-            message: "Минимальная длина должна быть больше 6 символов"
-          }
+        minLength: {
+          value: 6,
+          message: "Минимальная длина должна быть больше 6 символов"
+        },
+        maxLength: {
+          value: 50,
+          message: 'Максимальная длина должна быть меньше 50 символов'
+        },
         } : {}
       )}
              placeholder={'Пароль'}
@@ -48,11 +61,29 @@ export const Register: FC<IRegisterProps> = (
              styles={stylesInput}
       />
 
-      <Input {...register('nickname', isPasswordRequired ? {
-          required: "Nickname обязателен",
+      <Input {...register('confirmPassword', isPasswordRequired ? {
+          required: "Подтверждение пароля обязательно",
           minLength: {
             value: 6,
             message: "Минимальная длина должна быть больше 6 символов"
+          },
+          maxLength: {
+            value: 50,
+            message: 'Максимальная длина должна быть меньше 50 символов'
+          },
+        } : {}
+      )}
+             placeholder={'Подтверждение пароля'}
+             type={'password'}
+             error={errors?.confirmPassword}
+             styles={stylesInput}
+      />
+
+      <Input {...register('nickname', isPasswordRequired ? {
+          required: "Nickname обязателен",
+          minLength: {
+            value: 3,
+            message: "Минимальная длина должна быть больше 3 символов"
           }
         } : {}
       )}

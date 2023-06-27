@@ -8,5 +8,6 @@ export enum StatusEnum {
 export interface IAuthInputType {
   email: string
   password: string
+  confirmPassword: string;
   nickname: string
 }

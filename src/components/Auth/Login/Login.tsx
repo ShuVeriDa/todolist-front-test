@@ -22,7 +22,16 @@ export const Login: FC<ILoginProps> = (
   return (
     <div className={styles.wrapper}>
       <Input {...register('email', {
-          required: "Электронная почта обязательна", pattern: {
+          required: "Электронная почта обязательна",
+          minLength: {
+            value: 6,
+            message: "Минимальная длина должна быть больше 6 символов"
+          },
+          maxLength: {
+            value: 50,
+            message: 'Максимальная длина должна быть меньше 50 символов'
+          },
+          pattern: {
             value: validEmail,
             message: 'Пожалуйста, введите действительный адрес электронной почты'
           }
@@ -39,6 +48,10 @@ export const Login: FC<ILoginProps> = (
           minLength: {
             value: 6,
             message: "Минимальная длина должна быть больше 6 символов"
+          },
+          maxLength: {
+            value: 50,
+            message: 'Максимальная длина должна быть меньше 50 символов'
           }
         } : {}
       )}
