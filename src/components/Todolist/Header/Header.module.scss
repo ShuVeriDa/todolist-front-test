@@ -10,15 +10,58 @@
   .title {
     font-weight: 500;
     font-size: 20px;
-  }
 
-  .remove {
-    color: #ff5c5c;
-    font-size: 20px;
-    
-    &:hover {
-      cursor: pointer;
+    .item {
+      display: flex;
+      .edit {
+        color: orange;
+        font-size: 20px;
+
+      }
     }
   }
+
+  .btn {
+    display: flex;
+    justify-content: right;
+    width: 50px;
+    position: relative;
+    .edit {
+      border: none;
+      background: transparent;
+      color: orange;
+      font-size: 23px;
+      padding: 0;
+      width: 25px;
+      margin-right: 2px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .remove {
+      position: relative;
+      top: 3px;
+      color: #ff5c5c;
+      font-size: 18px;
+      width: 25px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .cancel {
+      width: 25px;
+      //color: #ff5c5c;
+      font-size: 25px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+
 
 }

@@ -1,7 +1,7 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useMemo} from "react";
 import {TodolistService} from "../services/todolist.service.ts";
-import {ICreateTask, ICreateTodolist} from "../services/todolist.type.ts";
+import {ICreateTask, ICreateTodolist, IUpdateTask, IUpdateTodolist} from "../services/todolist.type.ts";
 
 export const useTodolistQuery = (todolistId?: string, taskId?: string, page?: number) => {
   const getOneTodolist = useQuery({
@@ -24,8 +24,22 @@ export const useTodolistQuery = (todolistId?: string, taskId?: string, page?: nu
     }
   })
 
+  const updateTodolist = useMutation({
+    mutationFn: (data:IUpdateTodolist) => TodolistService.updateTodolist(todolistId!, data),
+    onSuccess: () => {
+      client.invalidateQueries({queryKey: ['allTodolists']})
+    }
+  })
+
   const createTask = useMutation({
     mutationFn: (data:ICreateTask) => TodolistService.createTask(data),
+    onSuccess: () => {
+      client.invalidateQueries({queryKey: ['oneTodolist']})
+    }
+  })
+
+  const updateTask = useMutation({
+    mutationFn: (data:IUpdateTask) => TodolistService.updateTask(taskId!, data),
     onSuccess: () => {
       client.invalidateQueries({queryKey: ['oneTodolist']})
     }
@@ -48,7 +62,7 @@ export const useTodolistQuery = (todolistId?: string, taskId?: string, page?: nu
   })
 
   return useMemo(() => ({
-    getTodolists, getOneTodolist, deleteTodolist, deleteTask, createTodolist, createTask
+    getTodolists, getOneTodolist, deleteTodolist, deleteTask, createTodolist, createTask, updateTodolist, updateTask
 
-  }), [getTodolists, getOneTodolist, deleteTodolist, deleteTask, createTodolist, createTask])
+  }), [getTodolists, getOneTodolist, deleteTodolist, deleteTask, createTodolist, createTask, updateTodolist, updateTask])
 }

@@ -15,8 +15,10 @@ export const Main: FC = () => {
   const {register, handleSubmit, reset} = useForm<ICreateTodolist>({mode: 'onChange'})
 
   const onSubmit: SubmitHandler<ICreateTodolist> = (data) => {
-    createTodo(data)
-    reset()
+    if(data.title.length > 2) {
+      createTodo(data)
+      reset()
+    }
   }
   return (
     <main className={styles.main}>
@@ -25,6 +27,7 @@ export const Main: FC = () => {
           <Field styles={stylesTodolist}
                  name={'title'}
                  register={register}
+                 isButton={true}
           />
         </div>
       </form>

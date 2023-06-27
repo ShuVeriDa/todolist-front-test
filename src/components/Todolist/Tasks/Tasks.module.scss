@@ -42,7 +42,7 @@
     }
   }
 
-  .btns {
+  .btn {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -61,6 +61,16 @@
 
     .remove {
       color: #ff5c5c;
+    }
+
+    .cancel {
+      //width: 25px;
+      //color: #ff5c5c;
+      font-size: 20px;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 

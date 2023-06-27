@@ -1,5 +1,5 @@
 import {instance} from "../api/api.interceptor.ts";
-import {ICreateTask, ICreateTodolist, ITodolist} from "./todolist.type.ts";
+import {ICreateTask, ICreateTodolist, ITask, ITodolist, IUpdateTask, IUpdateTodolist} from "./todolist.type.ts";
 import {getTodolistUrl} from "../api/api.config.ts";
 
 export const TodolistService = {
@@ -18,8 +18,18 @@ export const TodolistService = {
     return res.data
   },
 
+  updateTodolist: async (todolistId: string, data: IUpdateTodolist) => {
+    const res = await instance.patch<ITodolist>(getTodolistUrl(`/${todolistId}`), data)
+    return res.data
+  },
+
   createTask: async (data: ICreateTask) => {
     const res = await instance.post<ITodolist>(getTodolistUrl('/tasks'), data)
+    return res.data
+  },
+
+  updateTask: async (taskId: string, data: IUpdateTask) => {
+    const res = await instance.patch<ITask>(getTodolistUrl(`/tasks/${taskId}`), data)
     return res.data
   },
 

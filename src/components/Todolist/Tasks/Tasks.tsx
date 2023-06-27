@@ -1,31 +1,57 @@
-import {FC} from 'react';
+import {FC, useState} from 'react';
 import styles from './Tasks.module.scss';
-import {FaTrashAlt} from "react-icons/fa";
-import {MdModeEditOutline} from "react-icons/md";
 import {ITask} from "../../../services/todolist.type.ts";
+import stylesUpdate from "../Field/UpdateField.module.scss";
+import {useTodolistQuery} from "../../../react-query/useTodolistQuery.ts";
+import {TitleAndEdit} from "../TitleAndEdit/TitleAndEdit.tsx";
 
 interface ITasksProps {
   task: ITask
   removeTask: (taskId: string) => void
+  todolistId: string
 }
 
-export const Tasks: FC<ITasksProps> = ({task, removeTask}) => {
-  const removeTaskHandler = () => {
-    removeTask(task.id)
+export const Tasks: FC<ITasksProps> = ({task, removeTask, todolistId}) => {
+  const [newText, setNewText] = useState(task.text)
+  const [isEdit, setEdit] = useState(false)
+  const {updateTask} = useTodolistQuery(todolistId, task.id)
+  const {mutate: editTask} = updateTask
+
+  const changeText = (text: string) => setNewText(text)
+  const onEditOpen = () => setEdit(true)
+  const onEditClose = () => {
+    setNewText(task.text)
+    setEdit(false)
   }
+  const onEditHandler = () => {
+    if (!isEdit) {
+      onEditOpen()
+    }
+    if (isEdit) {
+      editTask({todolistId: todolistId, text: newText})
+      setEdit(false)
+    }
+  }
+
+  const removeTaskHandler = () => removeTask(task.id)
+
   return (
     <div className={styles.tasks}>
       <div className={styles.checkbox}>
         <input type="checkbox" defaultChecked={task.completed}/>
       </div>
-      <div className={styles.title}>
-        {task.text}
-      </div>
-      <div className={styles.btns}>
-        <div className={styles.edit}> <MdModeEditOutline /></div>
-        <div className={styles.remove} onClick={removeTaskHandler}><FaTrashAlt /></div>
-      </div>
+      <TitleAndEdit isEdit={isEdit}
+                    onEditOpen={onEditOpen}
+                    onEditHandler={onEditHandler}
+                    title={task.text}
+                    newText={newText}
+                    remove={removeTaskHandler}
+                    onEditClose={onEditClose}
+                    styles={styles}
+                    changeText={changeText}
+                    stylesUpdate={stylesUpdate}
 
+      />
     </div>
   );
 };
