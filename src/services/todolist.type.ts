@@ -9,3 +9,7 @@ export interface ITask {
   text: string
   completed: boolean
 }
+
+export interface ICreateTodolist {
+  title: string
+}

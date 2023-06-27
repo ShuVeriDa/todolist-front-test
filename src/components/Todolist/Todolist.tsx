@@ -26,7 +26,7 @@ export const Todolist: FC<ITodolistProps> = ({todolist}) => {
 
   return (
     <div className={styles.todolist}>
-      <Header remove={removeTodolist}/>
+      <Header title={todolist.title} remove={removeTodolist}/>
       <Field styles={stylesTask}/>
       {tasks && tasks.length > 0 && <div className={styles.main}>
         {tasks?.map(task => {

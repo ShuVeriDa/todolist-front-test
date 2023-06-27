@@ -19,7 +19,7 @@ export const Pagination: FC<PaginationPropsType> = ({currentPage,onChangePage, m
          onPageChange={(e) => onChangePage(e.selected + 1)}
          pageRangeDisplayed={4}
          pageCount={maxPage}
-         forcePage={currentPage - 1}
+         forcePage={currentPage - 1 > maxPage - 1 ? maxPage - 1 : currentPage - 1}
       />
    );
 };
