@@ -1,5 +1,6 @@
 import {FC} from 'react';
 import styles from './Header.module.scss';
+import {FaTrashAlt} from "react-icons/fa";
 interface IHeaderProps {
 }
 
@@ -9,8 +10,8 @@ export const Header: FC<IHeaderProps> = () => {
       <div className={styles.title}>
         Todos
       </div>
-      <div>
-        Удалить
+      <div className={styles.remove}>
+       <FaTrashAlt />
       </div>
     </div>
   );

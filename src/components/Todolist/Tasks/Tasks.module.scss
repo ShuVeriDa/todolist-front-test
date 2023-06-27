@@ -2,26 +2,68 @@
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #E0E0E0;
-  padding: 10px;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  min-height: 40px;
 
   &:last-child {
     border-bottom: 0;
   }
 
+  &:nth-child(odd) {
+    background: #fff;
+  }
+
+  &:nth-child(odd) {
+    background: #F2F2F2;
+  }
+
+
   .checkbox {
     display: flex;
     width: 20px;
+    
+    &:hover {
+      input {
+        cursor: pointer;
+      }
+    }
   }
 
 
   .title {
-    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin: 0 10px;
+    width: 100%;
     text-align: left;
+
+    input {
+      width: 100%;
+    }
   }
 
   .btns {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: 60px;
+    
+    .edit, .remove {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .edit {
+      color: orange;
+      font-size: 20px;
+    }
+
+    .remove {
+      color: #ff5c5c;
+    }
   }
 
 }

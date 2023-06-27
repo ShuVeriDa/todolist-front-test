@@ -5,7 +5,6 @@ import {Register} from "../../components/Auth/Register/Register.tsx";
 import {SubmitButton} from "../../components/SubmitButton/SubmitButton.tsx";
 import stylesButton from '../../components/SubmitButton/SubmitButton.module.scss';
 import cn from "clsx";
-import {useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {IAuthInputType} from "../../redux/types.ts";
 import {useActions} from "../../hooks/useActions.ts";
@@ -16,7 +15,6 @@ const list = ['SIGN IN', "SIGN UP"]
 
 export const Auth: FC = () => {
   useAuthRedirect()
-  const navigate = useNavigate()
   const {loginTC, registerTC} = useActions()
   const [type, setType] = useState<'login' | 'register'>('login')
 
@@ -33,8 +31,6 @@ export const Auth: FC = () => {
   const onSubmit: SubmitHandler<IAuthInputType> = (data) => {
     if (type === 'login') loginTC(data)
     else if (type === 'register') registerTC(data)
-
-    navigate('/')
     reset()
   }
 

@@ -1,2 +1,3 @@
 
-export const getUsersUrl = (string: string) => `/users${string}`
+
+export const getTodolistUrl = (string: string) => `/todolists${string}`

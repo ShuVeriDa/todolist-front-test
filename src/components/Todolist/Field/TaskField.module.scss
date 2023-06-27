@@ -1,17 +1,19 @@
 .field {
   margin: 15px 15px;
   display: flex;
+  align-items: center;
   .input {
     border: 1px solid #E0E0E0;
-    height: 25px;
+    height: 30px;
+
     padding: 0 10px;
     width: 100%;
     outline: none;
   }
 
   .btn {
-    height: 27.5px;
     padding: 0 10px;
+    height: 33px;
     border: 1px solid #E0E0E0;
     background: #007BFF;
     color: #fff;
