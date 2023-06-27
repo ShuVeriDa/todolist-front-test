@@ -7,4 +7,14 @@ export const TodolistService = {
     const res = await instance.get<ITodolist[]>(getTodolistUrl(``))
     return res.data
   },
+
+  fetchOneTodolist: async (todolistId: string, page: number) => {
+    const res = await instance.get<ITodolist>(getTodolistUrl(`/${todolistId}?page=${page}`))
+    return res.data
+  },
+
+  removeTodolist: async (todolistId: string) => {
+    const res = await instance.delete(getTodolistUrl(`/${todolistId}`))
+    return res.data
+  }
 }
