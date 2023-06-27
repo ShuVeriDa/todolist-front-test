@@ -20,9 +20,8 @@ export const Tasks: FC<ITasksProps> = ({task}) => {
       <div className={styles.btns}>
         <div className={styles.edit}> <MdModeEditOutline /></div>
         <div className={styles.remove}><FaTrashAlt /></div>
-
-
       </div>
+
     </div>
   );
 };

@@ -3,9 +3,27 @@
   width: 400px;
   box-sizing: border-box;
   border: 1px solid #E0E0E0;
+  height: 411px;
+  position: relative;
 
   .main {
     border: 1px solid #E0E0E0;
     margin: 0 15px 15px;
+    max-height: 283px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+  }
+
+  .pagination {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    height: 50px;
   }
 }

@@ -1,0 +1,58 @@
+.root {
+   height: 50px;
+   display: flex;
+   align-items: center;
+   padding: 0;
+   background: #F7F7F7;
+   position: relative;
+   li {
+      border: 1px solid transparent;
+      display: inline-block;
+      font-weight: 500;
+      font-size: 20px;
+      //display: flex;
+      width: 25px;
+      height: 25px;
+      margin: 0 3px;
+      &:hover {
+         background-color: #fff;
+         a {
+            color: red;
+         }
+      }
+
+      &:first-child,
+      &:last-child {
+         border: none;
+      }
+
+      &:last-child {
+         position: absolute;
+         left: 335px;
+      }
+   }
+   
+   a {
+      text-align: center;
+      margin-right: 10px;
+      width: inherit;
+      height: inherit;
+      cursor: pointer;
+      display: inline-block;
+      color: #00A5F5;
+      
+      &:hover {
+         color: #006DB1;
+      }
+   }
+
+   :global {
+      .selected {
+         border: 1px solid #DDDDDD;
+         a {
+            background-color: #fff;
+            color: red;
+         }
+      }
+   }
+}
