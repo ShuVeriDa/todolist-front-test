@@ -2,7 +2,7 @@ import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {useMemo} from "react";
 import {TodolistService} from "../services/todolist.service.ts";
 
-export const useTodolistQuery = (todolistId?: string, page?: number) => {
+export const useTodolistQuery = (todolistId?: string, taskId?: string, page?: number) => {
   const getOneTodolist = useQuery({
     queryFn: () => TodolistService.fetchOneTodolist(todolistId!, page!),
     queryKey: ['oneTodolist', todolistId, page],
@@ -25,8 +25,16 @@ export const useTodolistQuery = (todolistId?: string, page?: number) => {
     }
   })
 
-  return useMemo(() => ({
-    getTodolists, getOneTodolist, deleteTodolist
+  const deleteTask = useMutation({
+    mutationFn: (taskId: string) => TodolistService.removeTask(taskId),
+    onSuccess: () => {
+      client.invalidateQueries({queryKey: ['oneTodolist']})
+      getOneTodolist.refetch()
+    }
+  })
 
-  }), [getTodolists, getOneTodolist, deleteTodolist])
+  return useMemo(() => ({
+    getTodolists, getOneTodolist, deleteTodolist, deleteTask
+
+  }), [getTodolists, getOneTodolist, deleteTodolist, deleteTask])
 }

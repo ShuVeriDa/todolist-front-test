@@ -13,30 +13,28 @@ interface ITodolistProps {
 
 export const Todolist: FC<ITodolistProps> = ({todolist}) => {
   const [currentPage, setCurrentPage] = useState(1)
-  const {getOneTodolist, deleteTodolist} = useTodolistQuery(todolist.id, currentPage)
-  const {mutate: remove} = deleteTodolist
-  const {data, isSuccess} = getOneTodolist
+  const {getOneTodolist, deleteTodolist, deleteTask} = useTodolistQuery(todolist.id, undefined, currentPage)
+  const {mutate: removeTodo} = deleteTodolist
+  const {mutate: removeTask} = deleteTask
+  const {data} = getOneTodolist
   const tasks = data?.tasks
 
-  const removeTodolist = () => remove(todolist.id)
+  const removeTodolist = () => removeTodo(todolist.id)
+  const removeTodoTask = (taskId: string) => removeTask(taskId)
   const onChangeCurrentPage = (page: number) => setCurrentPage(page)
   const totalPages = Math.ceil(todolist.tasks.length / 5)
-
-  console.log(tasks?.length)
 
   return (
     <div className={styles.todolist}>
       <Header remove={removeTodolist}/>
       <Field styles={stylesTask}/>
-      {tasks?.length! > 0 && <div className={styles.main}>
+      {tasks && tasks.length > 0 && <div className={styles.main}>
         {tasks?.map(task => {
           return <Tasks key={task.id}
                         task={task}
+                        removeTask={removeTodoTask}
           />
         })}
-
-
-
       </div>}
       <div className={styles.pagination}>
         <Pagination currentPage={currentPage}

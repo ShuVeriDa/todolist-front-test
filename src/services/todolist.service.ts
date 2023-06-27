@@ -16,5 +16,9 @@ export const TodolistService = {
   removeTodolist: async (todolistId: string) => {
     const res = await instance.delete(getTodolistUrl(`/${todolistId}`))
     return res.data
-  }
+  },
+  removeTask: async (taskId: string) => {
+    const res = await instance.delete(getTodolistUrl(`/tasks/${taskId}`))
+    return res.data
+  },
 }
