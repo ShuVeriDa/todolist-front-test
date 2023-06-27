@@ -1,0 +1,27 @@
+.tasks {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #E0E0E0;
+  padding: 10px;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  .checkbox {
+    display: flex;
+    width: 20px;
+  }
+
+
+  .title {
+    width: 200px;
+    text-align: left;
+  }
+
+  .btns {
+    display: flex;
+    align-items: center;
+  }
+
+}

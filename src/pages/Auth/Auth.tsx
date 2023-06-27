@@ -20,9 +20,12 @@ export const Auth: FC = () => {
   const {loginTC, registerTC} = useActions()
   const [type, setType] = useState<'login' | 'register'>('login')
 
-  const setToggleType = () => {
-    if (type === 'login') setType('register')
-    if (type === 'register') setType('login')
+  const switchToLogin = () => {
+    setType('login')
+  }
+
+  const switchToRegister= () => {
+    setType('register')
   }
 
   const {register, handleSubmit, formState: {errors}, reset} = useForm<IAuthInputType>({mode: 'onChange'})
@@ -42,7 +45,7 @@ export const Auth: FC = () => {
           <ul>
             {list.map((l, i) => {
               return <li key={i}
-                         onClick={setToggleType}
+                         onClick={i === 0 ? switchToLogin : switchToRegister}
                          className={cn((i === 0 && type === 'login') || (i === 1 && type === 'register')
                            ? styles.active
                            : styles.listItem)

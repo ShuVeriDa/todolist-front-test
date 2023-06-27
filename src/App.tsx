@@ -5,7 +5,7 @@ import {useEffect} from "react";
 import {useActions} from "./hooks/useActions.ts";
 import {useAuth} from "./hooks/useAuth.ts";
 import Cookies from "js-cookie";
-import {Main} from "./pages/Main/Main.tsx";
+import {Wrapper} from "./pages/Wrapper/Wrapper.tsx";
 
 function App() {
   const navigate = useNavigate()
@@ -32,7 +32,7 @@ function App() {
   return (
     <Routes>
       <Route path={'/auth'} element={<Auth/>}/>
-      <Route path={'/'} element={<Main />}/>
+      <Route path={'/'} element={<Wrapper/>}/>
     </Routes>
   )
 }
