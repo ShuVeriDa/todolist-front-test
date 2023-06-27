@@ -1,4 +1,4 @@
-import {FC, useState} from 'react';
+import {ChangeEvent, FC, useState} from 'react';
 import styles from './Tasks.module.scss';
 import {ITask} from "../../../services/todolist.type.ts";
 import stylesUpdate from "../Field/UpdateField.module.scss";
@@ -15,7 +15,7 @@ export const Tasks: FC<ITasksProps> = ({task, removeTask, todolistId}) => {
   const [newText, setNewText] = useState(task.text)
   const [isEdit, setEdit] = useState(false)
   const {updateTask} = useTodolistQuery(todolistId, task.id)
-  const {mutate: editTask} = updateTask
+  const {mutateAsync: editTask} = updateTask
 
   const changeText = (text: string) => setNewText(text)
   const onEditOpen = () => setEdit(true)
@@ -23,14 +23,18 @@ export const Tasks: FC<ITasksProps> = ({task, removeTask, todolistId}) => {
     setNewText(task.text)
     setEdit(false)
   }
-  const onEditHandler = () => {
+  const onEditHandler = async () => {
     if (!isEdit) {
       onEditOpen()
     }
     if (isEdit) {
-      editTask({todolistId: todolistId, text: newText})
+      await editTask({todolistId: todolistId, text: newText})
       setEdit(false)
     }
+  }
+
+  const onChangeCheckbox = async (e: ChangeEvent<HTMLInputElement>) => {
+    await editTask({todolistId: todolistId, completed: e.currentTarget.checked})
   }
 
   const removeTaskHandler = () => removeTask(task.id)
@@ -38,7 +42,10 @@ export const Tasks: FC<ITasksProps> = ({task, removeTask, todolistId}) => {
   return (
     <div className={styles.tasks}>
       <div className={styles.checkbox}>
-        <input type="checkbox" defaultChecked={task.completed}/>
+        <input type="checkbox"
+               defaultChecked={task.completed}
+               onChange={onChangeCheckbox}
+        />
       </div>
       <TitleAndEdit isEdit={isEdit}
                     onEditOpen={onEditOpen}
