@@ -18,21 +18,29 @@
     background:  #fff;
 
     .list {
-
+      display: flex;
+      justify-content: center;
       ul {
         padding: 0;
         margin: 0;
-        width: 140px;
+        width: 120px;
 
         display: flex;
         justify-content: space-between;
         list-style-type: none;
 
-        li {
+        .listItem {
+          font-size: 13px;
+          font-weight: 500;
           &:hover {
             text-decoration: underline;
             cursor: pointer;
+            color: darkgoldenrod;
           }
+        }
+
+        .active {
+          color: gold;
         }
       }
     }
@@ -44,6 +52,11 @@
         font-weight: 500;
         line-height: 24px;
       }
+    }
+
+    .submit {
+      display: flex;
+      justify-content: center;
     }
   }
 }

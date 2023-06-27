@@ -2,18 +2,37 @@ import {FC, useState} from 'react';
 import styles from './Auth.module.scss';
 import {Login} from "../../components/Auth/Login/Login.tsx";
 import {Register} from "../../components/Auth/Register/Register.tsx";
-interface IAuthProps {
-}
+import {SubmitButton} from "../../components/SubmitButton/SubmitButton.tsx";
+import stylesButton from '../../components/SubmitButton/SubmitButton.module.scss';
+import cn from "clsx";
+import {useNavigate} from "react-router-dom";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {IAuthInputType} from "../../redux/types.ts";
+import {useActions} from "../../hooks/useActions.ts";
+import {useAuthRedirect} from "../../components/Auth/useAuthRedirect.ts";
 
-export const Auth: FC<IAuthProps> = () => {
+
+const list = ['SIGN IN', "SIGN UP"]
+
+export const Auth: FC = () => {
+  useAuthRedirect()
+  const navigate = useNavigate()
+  const {loginTC, registerTC} = useActions()
   const [type, setType] = useState<'login' | 'register'>('login')
 
-  const setLoginType = () => {
-    setType('login')
+  const setToggleType = () => {
+    if (type === 'login') setType('register')
+    if (type === 'register') setType('login')
   }
 
-  const setRegisterType = () => {
-    setType('register')
+  const {register, handleSubmit, formState: {errors}, reset} = useForm<IAuthInputType>({mode: 'onChange'})
+
+  const onSubmit: SubmitHandler<IAuthInputType> = (data) => {
+    if (type === 'login') loginTC(data)
+    else if (type === 'register') registerTC(data)
+
+    navigate('/')
+    reset()
   }
 
   return (
@@ -21,22 +40,36 @@ export const Auth: FC<IAuthProps> = () => {
       <div className={styles.container}>
         <div className={styles.list}>
           <ul>
-            <li onClick={setLoginType} style={type === 'login' ? {color: 'green'} : {color: "gray"}}> SIGN IN</li>
-            <li onClick={setRegisterType} style={type === 'register' ? {color: 'green'} : {color: "gray"}}> SIGN UP</li>
+            {list.map((l, i) => {
+              return <li key={i}
+                         onClick={setToggleType}
+                         className={cn((i === 0 && type === 'login') || (i === 1 && type === 'register')
+                           ? styles.active
+                           : styles.listItem)
+                         }>{l}</li>
+            })}
           </ul>
         </div>
-        {/*<form onSubmit={handleSubmit(onSubmit)}>*/}
-        <div className={styles.title}>
-          <h2 className={styles.h2}>{type === 'login' ? "Вход" : "Регистрация"}</h2>
-        </div>
-
-        {type === 'login' ? <Login/> : <Register />}
-
-          <div>
-            {/*<SubmitButton title={"Вход"}*/}
-            {/*/>*/}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={styles.title}>
+            <h2 className={styles.h2}>{type === 'login' ? "Вход" : "Регистрация"}</h2>
           </div>
-        {/*</form>*/}
+          {type === 'login'
+            ? <Login register={register}
+                     errors={errors}
+                     isPasswordRequired
+            />
+            : <Register register={register}
+                        errors={errors}
+                        isPasswordRequired
+            />
+          }
+          <div className={styles.submit}>
+            <SubmitButton styles={stylesButton}
+                          title={type === 'login' ? "Войти" : "Зарегистрироваться"}
+            />
+          </div>
+        </form>
       </div>
     </div>
   );
